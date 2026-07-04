@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PromptMaster — Master Prompt Engineering & Supercharge Your Career</title>
+<meta name="description" content="PromptMaster is the cohort-based course that takes working professionals from AI novice to prompt engineering expert. Enroll in the February 1st cohort.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --void:#0a0805; --void-2:#120d09; --panel-fill:rgba(255,255,255,.04); --panel-border:rgba(255,255,255,.09);
+  --line:rgba(255,255,255,.09); --hairline:rgba(255,255,255,.07);
+  --ember:#f2711d; --ember-2:#ff8a3d; --ember-deep:#a8420c;
+  --paper:#f7f4ef; --mist:#a89e91; --mist-2:#756a5d;
+  --good:#8bc78f; --improve:#e7a53f;
+  --font-display:'Space Grotesk',system-ui,sans-serif; --font-body:'Inter',system-ui,sans-serif; --font-mono:'JetBrains Mono',ui-monospace,monospace;
+  --radius-lg:20px; --radius-md:14px; --ease:cubic-bezier(.16,.8,.24,1);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth; scroll-padding-top:84px}
+body{margin:0; background:var(--void); color:var(--paper); font-family:var(--font-body); -webkit-font-smoothing:antialiased; overflow-x:hidden}
+img,svg{display:block; max-width:100%}
+a{color:inherit}
+section,footer{position:relative}
+p{margin:0}
+h1,h2,h3{margin:0}
+ul{margin:0}
+:focus-visible{outline:2px solid var(--ember); outline-offset:3px; border-radius:4px}
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.001ms !important; animation-iteration-count:1 !important; transition-duration:.001ms !important}
+}
+
+/* background layers */
+.bg-grid{position:fixed; inset:0; z-index:0; pointer-events:none;
+  background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);
+  background-size:44px 44px;
+  mask-image:linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,.4) 45%, rgba(0,0,0,0) 85%);
+  -webkit-mask-image:linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,.4) 45%, rgba(0,0,0,0) 85%);
+}
+
+/* reveal-on-scroll */
+.reveal{opacity:0; transform:translateY(18px); transition:opacity .7s var(--ease), transform .7s var(--ease)}
+.reveal.in{opacity:1; transform:none}
+.reveal:nth-child(1){transition-delay:0s}
+.reveal:nth-child(2){transition-delay:.08s}
+.reveal:nth-child(3){transition-delay:.16s}
+.reveal:nth-child(4){transition-delay:.24s}
+.reveal:nth-child(5){transition-delay:.32s}
+.reveal:nth-child(6){transition-delay:.4s}
+@media (prefers-reduced-motion: reduce){.reveal{opacity:1; transform:none; transition:none}}
+
+/* nav */
+.nav{position:sticky; top:0; z-index:50; background:transparent; border-bottom:1px solid transparent;
+  transition:background .3s var(--ease), border-color .3s var(--ease), backdrop-filter .3s var(--ease)}
+.nav.scrolled{background:rgba(10,8,5,.75); backdrop-filter:blur(12px); border-bottom-color:var(--hairline)}
+.nav__inner{max-width:1180px; margin:0 auto; padding:18px clamp(20px,5vw,48px); display:flex; align-items:center; justify-content:space-between; gap:24px}
+.brand{display:flex; align-items:center; gap:10px; text-decoration:none}
+.brand__mark{display:flex; align-items:center; justify-content:center; width:34px; height:34px; border-radius:9px; flex-shrink:0;
+  background:linear-gradient(145deg,var(--ember-2),var(--ember-deep)); box-shadow:0 4px 14px -4px rgba(242,113,29,.6)}
+.brand__word{font-family:var(--font-display); font-weight:700; font-size:1.15rem; color:var(--paper); letter-spacing:-.01em; white-space:nowrap}
+.brand__word .accent{color:var(--ember)}
+.nav__links{display:flex; gap:32px}
+.nav__links a{color:var(--mist); text-decoration:none; font-size:.925rem; font-weight:500; transition:color .2s; position:relative}
+.nav__links a:hover{color:var(--paper)}
+.nav__links a::after{content:''; position:absolute; left:0; right:0; bottom:-6px; height:1px; background:var(--ember); transform:scaleX(0); transition:transform .25s var(--ease)}
+.nav__links a:hover::after{transform:scaleX(1)}
+.nav__actions{display:flex; align-items:center; gap:14px}
+@media (max-width:880px){.nav__links{display:none}}
+
+.btn{display:inline-flex; align-items:center; gap:8px; font-family:var(--font-body); font-weight:600; font-size:.95rem; padding:12px 22px; border-radius:999px; text-decoration:none; cursor:pointer; border:1px solid transparent; transition:transform .2s var(--ease), box-shadow .2s var(--ease), background .2s}
+.btn svg{transition:transform .25s var(--ease)}
+.btn:hover svg{transform:translateX(3px)}
+.btn--ghost{background:rgba(255,255,255,.05); color:var(--paper); border-color:var(--line)}
+.btn--ghost:hover{background:rgba(255,255,255,.09)}
+@media (max-width:880px){.btn--ghost{display:none}}
+.btn--cta{background:linear-gradient(180deg,rgba(242,113,29,.14),rgba(242,113,29,.05)); color:var(--ember); border:1px solid var(--ember-deep);
+  box-shadow:0 0 0 1px rgba(242,113,29,.12), 0 14px 34px -12px rgba(242,113,29,.55); font-weight:700}
+.btn--cta:hover{box-shadow:0 0 0 1px rgba(242,113,29,.2), 0 18px 40px -10px rgba(242,113,29,.7); transform:translateY(-2px)}
+.btn--solid{background:var(--ember); color:#1a0d02; border-color:var(--ember)}
+.btn--solid:hover{background:var(--ember-2)}
+
+.hamburger{display:none; flex-direction:column; justify-content:center; align-items:center; gap:5px; width:40px; height:40px; background:none; border:none; cursor:pointer; flex-shrink:0}
+.hamburger span{display:block; width:22px; height:2px; background:var(--paper); border-radius:2px; transition:transform .25s var(--ease), opacity .2s}
+.hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.hamburger.open span:nth-child(2){opacity:0}
+.hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+@media (max-width:880px){.hamburger{display:flex}}
+
+.mobile-menu{max-height:0; overflow:hidden; background:rgba(10,8,5,.97); backdrop-filter:blur(12px); border-bottom:1px solid transparent; transition:max-height .35s var(--ease), border-color .35s}
+.mobile-menu.open{max-height:400px; border-bottom-color:var(--hairline)}
+.mobile-menu a{display:block; padding:14px clamp(20px,5vw,48px); color:var(--mist); text-decoration:none; font-weight:500; border-top:1px solid var(--hairline)}
+.mobile-menu a.mobile-menu__cta{margin:14px clamp(20px,5vw,48px); border-top:none; text-align:center; justify-content:center}
+
+/* announcement */
+.announcement{position:relative; z-index:1; display:flex; align-items:center; justify-content:center; gap:10px; flex-wrap:wrap; padding:14px clamp(20px,5vw,48px) 0; color:var(--paper); font-size:.9rem}
+.announcement svg{color:var(--ember); flex-shrink:0}
+.announcement .label{color:var(--mist)}
+.countdown{display:flex; align-items:center; gap:6px; font-family:var(--font-mono)}
+.countdown__box{background:rgba(255,255,255,.07); border:1px solid var(--line); border-radius:7px; padding:4px 9px; font-weight:600; font-size:.88rem; min-width:2ch; text-align:center; color:var(--paper)}
+.countdown__sep{color:var(--mist-2); font-weight:600}
+
+/* hero */
+.hero{position:relative; overflow:hidden}
+.hero__glow{position:absolute; top:-280px; left:50%; transform:translateX(-50%); width:1100px; height:700px; z-index:0;
+  background:radial-gradient(closest-side, rgba(242,113,29,.55), rgba(242,113,29,.18) 45%, transparent 70%); filter:blur(10px); animation:breathe 10s ease-in-out infinite}
+@keyframes breathe{0%,100%{opacity:.85; transform:translateX(-50%) scale(1)} 50%{opacity:1; transform:translateX(-50%) scale(1.05)}}
+@media (prefers-reduced-motion: reduce){.hero__glow{animation:none}}
+.hero__content{position:relative; z-index:1; max-width:900px; margin:0 auto; padding:34px clamp(20px,5vw,48px) 90px; text-align:center; display:flex; flex-direction:column; align-items:center}
+.badge{display:inline-flex; align-items:center; gap:8px; background:rgba(255,255,255,.055); border:1px solid var(--line); border-radius:999px; padding:8px 16px; font-size:.85rem; color:var(--paper); margin-bottom:28px}
+.badge__dot{width:7px; height:7px; border-radius:50%; background:var(--ember); box-shadow:0 0 0 4px rgba(242,113,29,.18); flex-shrink:0}
+.hero__heading{font-family:var(--font-display); font-weight:700; font-size:clamp(2.3rem,5.6vw,4.2rem); line-height:1.06; letter-spacing:-.02em; color:var(--paper); margin-bottom:22px}
+.hero__heading .accent{color:var(--ember)}
+.hero-break{display:block}
+@media (max-width:640px){.hero-break{display:none}}
+.hero__sub{font-size:clamp(1.05rem,2vw,1.25rem); color:var(--mist); max-width:560px; margin:0 auto 40px; line-height:1.55}
+
+/* analyzer widget */
+.analyzer{width:100%; max-width:720px; background:var(--panel-fill); border:1px solid var(--panel-border); border-radius:var(--radius-lg); backdrop-filter:blur(6px); text-align:left; margin-bottom:36px; overflow:visible}
+.analyzer__head{display:flex; align-items:center; justify-content:space-between; padding:16px 22px; gap:12px; flex-wrap:wrap}
+.analyzer__title{display:flex; align-items:center; gap:9px; font-weight:700; color:var(--paper); font-family:var(--font-body)}
+.analyzer__title svg{color:var(--ember)}
+.analyzer__tools{display:flex; align-items:center; gap:14px}
+.analyzer__status{font-size:.85rem; color:var(--mist); font-family:var(--font-mono)}
+.analyzer__status.busy{color:var(--ember)}
+.icon-btn{background:none; border:none; color:var(--mist); cursor:pointer; display:flex; padding:4px; border-radius:6px; transition:color .2s, background .2s}
+.icon-btn:hover{color:var(--paper); background:rgba(255,255,255,.06)}
+.history-wrap{position:relative}
+.history-panel{position:absolute; top:calc(100% + 10px); right:0; width:260px; background:#17130d; border:1px solid var(--line); border-radius:var(--radius-md);
+  box-shadow:0 20px 40px -12px rgba(0,0,0,.6); padding:8px; opacity:0; visibility:hidden; transform:translateY(-6px); transition:opacity .2s var(--ease), transform .2s var(--ease); z-index:20}
+.history-panel.open{opacity:1; visibility:visible; transform:translateY(0)}
+.history-panel__empty{padding:14px 10px; color:var(--mist-2); font-size:.85rem; text-align:center}
+.history-item{display:flex; justify-content:space-between; gap:10px; align-items:center; padding:10px; border-radius:8px; cursor:pointer; background:none; border:none; width:100%; text-align:left; color:var(--paper); font-size:.83rem}
+.history-item:hover{background:rgba(255,255,255,.06)}
+.history-item__prompt{overflow:hidden; text-overflow:ellipsis; white-space:nowrap; flex:1; color:var(--mist)}
+.history-item__score{font-family:var(--font-mono); color:var(--ember); font-weight:600; flex-shrink:0}
+.analyzer__row{display:flex; gap:10px; padding:18px 22px 22px; border-top:1px solid var(--hairline)}
+.analyzer__input{flex:1; background:rgba(255,255,255,.04); border:1px solid var(--line); border-radius:var(--radius-md); padding:14px 16px; color:var(--paper);
+  font-family:var(--font-mono); font-size:.92rem; outline:none; transition:border-color .2s, background .2s; min-width:0}
+.analyzer__input::placeholder{color:var(--mist-2)}
+.analyzer__input:focus{border-color:var(--ember-deep); background:rgba(255,255,255,.06)}
+.analyzer__submit{flex-shrink:0; width:44px; height:44px; border-radius:var(--radius-md); background:var(--ember); border:none; color:#1a0d02; display:flex; align-items:center; justify-content:center; cursor:pointer; transition:background .2s, transform .2s}
+.analyzer__submit:hover{background:var(--ember-2); transform:scale(1.05)}
+.analyzer__submit:active{transform:scale(.96)}
+.analyzer__submit:disabled{opacity:.5; cursor:default; transform:none}
+.analyzer__result{padding:0 22px 22px}
+.analyzer__result[hidden]{display:none}
+.answer-box{padding-top:16px; border-top:1px solid var(--hairline)}
+.answer-box__label{display:flex; align-items:center; gap:8px; font-family:var(--font-mono); font-size:.78rem; letter-spacing:.06em; text-transform:uppercase; color:var(--ember); margin-bottom:10px}
+.answer-box__text{color:var(--paper); font-size:.95rem; line-height:1.65; white-space:pre-wrap}
+.answer-box__error{color:var(--improve); font-size:.9rem; line-height:1.6}
+.answer-box__error a{color:var(--ember); text-decoration:underline}
+.typing-dots{display:inline-flex; gap:4px; align-items:center; padding:2px 0}
+.typing-dots span{width:6px; height:6px; border-radius:50%; background:var(--ember); animation:typing-bounce 1.1s ease-in-out infinite}
+.typing-dots span:nth-child(2){animation-delay:.15s}
+.typing-dots span:nth-child(3){animation-delay:.3s}
+@keyframes typing-bounce{0%,60%,100%{opacity:.35; transform:translateY(0)} 30%{opacity:1; transform:translateY(-3px)}}
+@media (prefers-reduced-motion: reduce){.typing-dots span{animation:none; opacity:.8}}
+.example-row{display:flex; flex-wrap:wrap; gap:8px; padding:0 22px 18px}
+.example-chip{background:rgba(255,255,255,.05); border:1px solid var(--line); color:var(--mist); font-size:.8rem; padding:7px 13px; border-radius:999px; cursor:pointer; transition:background .2s, color .2s, border-color .2s}
+.example-chip:hover{background:rgba(255,255,255,.09); color:var(--paper); border-color:var(--ember-deep)}
+.hero__trust{font-size:.85rem; color:var(--mist-2); margin-top:16px}
+
+/* section shared */
+.section-head{max-width:640px; margin:0 auto 52px; text-align:center}
+.eyebrow{display:inline-flex; align-items:center; gap:8px; font-family:var(--font-mono); font-size:.78rem; letter-spacing:.12em; text-transform:uppercase; color:var(--ember); margin-bottom:16px}
+.eyebrow::before{content:''; width:16px; height:1px; background:var(--ember-deep)}
+.section-title{font-family:var(--font-display); font-weight:700; font-size:clamp(1.7rem,3.6vw,2.5rem); color:var(--paper); letter-spacing:-.01em; margin-bottom:14px}
+.section-desc{color:var(--mist); font-size:1.05rem; line-height:1.6}
+
+/* stats */
+.stats{max-width:1080px; margin:0 auto; padding:40px clamp(20px,5vw,48px) 100px; display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--hairline); border:1px solid var(--hairline); border-radius:var(--radius-lg); overflow:hidden}
+.stat{background:var(--void); padding:30px 20px; text-align:center}
+.stat__num{font-family:var(--font-display); font-weight:700; font-size:clamp(1.8rem,3.4vw,2.4rem); color:var(--paper); margin-bottom:6px}
+.stat__label{font-size:.85rem; color:var(--mist)}
+@media (max-width:760px){.stats{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:420px){.stats{grid-template-columns:1fr}}
+
+/* curriculum */
+.curriculum{max-width:1080px; margin:0 auto; padding:40px clamp(20px,5vw,48px) 110px}
+.curriculum__grid{display:grid; grid-template-columns:repeat(2,1fr); gap:20px}
+.module{background:var(--panel-fill); border:1px solid var(--panel-border); border-radius:var(--radius-lg); padding:28px; transition:border-color .25s, transform .25s}
+.module:hover{border-color:var(--ember-deep); transform:translateY(-3px)}
+.module__num{font-family:var(--font-mono); color:var(--ember); font-weight:700; font-size:.85rem; margin-bottom:14px; display:block}
+.module__title{font-family:var(--font-display); font-weight:600; font-size:1.15rem; color:var(--paper); margin-bottom:10px}
+.module__desc{color:var(--mist); font-size:.92rem; line-height:1.6}
+@media (max-width:760px){.curriculum__grid{grid-template-columns:1fr}}
+
+/* testimonials */
+.testimonials{max-width:1080px; margin:0 auto; padding:40px clamp(20px,5vw,48px) 110px}
+.testimonial__grid{display:grid; grid-template-columns:repeat(3,1fr); gap:20px}
+.testimonial{background:var(--panel-fill); border:1px solid var(--panel-border); border-radius:var(--radius-lg); padding:26px; display:flex; flex-direction:column; gap:16px}
+.testimonial__quote{color:var(--paper); font-size:.98rem; line-height:1.65}
+.testimonial__quote::before{content:'"'; color:var(--ember)}
+.testimonial__quote::after{content:'"'; color:var(--ember)}
+.testimonial__person{display:flex; align-items:center; gap:12px; margin-top:auto}
+.testimonial__avatar{width:38px; height:38px; border-radius:50%; background:linear-gradient(145deg,var(--ember-2),var(--ember-deep)); display:flex; align-items:center; justify-content:center; font-family:var(--font-display); font-weight:700; color:#1a0d02; font-size:.85rem; flex-shrink:0}
+.testimonial__name{color:var(--paper); font-weight:600; font-size:.9rem}
+.testimonial__role{color:var(--mist-2); font-size:.8rem}
+@media (max-width:900px){.testimonial__grid{grid-template-columns:1fr}}
+
+/* pricing */
+.pricing{padding:40px clamp(20px,5vw,48px) 110px; overflow:hidden}
+.pricing__glow{position:absolute; bottom:-200px; left:50%; transform:translateX(-50%); width:900px; height:500px; background:radial-gradient(closest-side, rgba(242,113,29,.32), transparent 70%); z-index:0}
+.pricing__card{position:relative; z-index:1; max-width:640px; margin:0 auto; background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.02)); border:1px solid var(--panel-border); border-radius:var(--radius-lg); padding:clamp(28px,5vw,48px); text-align:center}
+.pricing__cohort{font-family:var(--font-mono); font-size:.85rem; color:var(--ember); margin-bottom:18px}
+.pricing__price-row{display:flex; align-items:baseline; justify-content:center; gap:12px; margin-bottom:8px; flex-wrap:wrap}
+.pricing__was{font-size:1.2rem; color:var(--mist-2); text-decoration:line-through}
+.pricing__now{font-family:var(--font-display); font-weight:700; font-size:clamp(2.4rem,5vw,3.2rem); color:var(--paper)}
+.pricing__cadence{color:var(--mist); font-size:.95rem; margin-bottom:30px}
+.pricing__features{list-style:none; text-align:left; max-width:400px; margin:0 auto 34px; padding:0; display:grid; gap:13px}
+.pricing__features li{display:flex; align-items:center; gap:10px; color:var(--mist); font-size:.94rem}
+.pricing__features li svg{color:var(--ember); flex-shrink:0}
+.pricing__note{margin-top:18px; font-size:.82rem; color:var(--mist-2)}
+
+/* faq */
+.faq{max-width:760px; margin:0 auto; padding:40px clamp(20px,5vw,48px) 110px}
+.faq__list{display:flex; flex-direction:column; gap:12px}
+.faq__item{border:1px solid var(--panel-border); border-radius:var(--radius-md); background:var(--panel-fill); overflow:hidden}
+.faq__q{width:100%; display:flex; justify-content:space-between; align-items:center; gap:16px; padding:19px 22px; background:none; border:none; color:var(--paper); font-family:var(--font-body); font-weight:600; font-size:1rem; text-align:left; cursor:pointer}
+.faq__q svg{flex-shrink:0; color:var(--ember); transition:transform .25s var(--ease)}
+.faq__item.open .faq__q svg{transform:rotate(180deg)}
+.faq__a{max-height:0; overflow:hidden; transition:max-height .3s var(--ease)}
+.faq__a p{padding:0 22px 20px; color:var(--mist); font-size:.92rem; line-height:1.65}
+
+/* final cta */
+.final-cta{max-width:700px; margin:0 auto; padding:20px clamp(20px,5vw,48px) 120px; text-align:center}
+.final-cta__title{font-family:var(--font-display); font-weight:700; font-size:clamp(1.6rem,3.6vw,2.3rem); color:var(--paper); margin-bottom:14px}
+.final-cta__sub{color:var(--mist); margin-bottom:30px}
+
+/* footer */
+.footer{border-top:1px solid var(--hairline); padding:50px clamp(20px,5vw,48px) 30px}
+.footer__inner{max-width:1180px; margin:0 auto; display:grid; grid-template-columns:1.4fr repeat(3,1fr); gap:32px; margin-bottom:40px}
+.footer__brand-desc{color:var(--mist-2); font-size:.88rem; margin-top:12px; max-width:260px; line-height:1.6}
+.footer__col-title{color:var(--paper); font-weight:600; font-size:.88rem; margin-bottom:16px}
+.footer__col a{display:block; color:var(--mist); text-decoration:none; font-size:.88rem; margin-bottom:11px; transition:color .2s}
+.footer__col a:hover{color:var(--ember)}
+.footer__bottom{max-width:1180px; margin:0 auto; padding-top:24px; border-top:1px solid var(--hairline); display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px; color:var(--mist-2); font-size:.82rem}
+.footer__bottom a{color:var(--mist-2); text-decoration:none; margin-left:16px}
+.footer__bottom a:hover{color:var(--ember)}
+@media (max-width:760px){.footer__inner{grid-template-columns:1fr 1fr}}
+@media (max-width:480px){.footer__inner{grid-template-columns:1fr}}
+
+/* toast */
+.toast{position:fixed; bottom:26px; left:50%; transform:translateX(-50%) translateY(20px); background:#17130d; border:1px solid var(--line); color:var(--paper); padding:12px 20px; border-radius:999px; font-size:.88rem;
+  box-shadow:0 20px 40px -10px rgba(0,0,0,.5); opacity:0; pointer-events:none; transition:opacity .25s var(--ease), transform .25s var(--ease); z-index:100; max-width:calc(100vw - 40px); text-align:center}
+.toast.show{opacity:1; transform:translateX(-50%) translateY(0)}
+</style>
+</head>
+<body>
+<div class="bg-grid" aria-hidden="true"></div>
+
+<header class="nav" id="siteNav">
+  <div class="nav__inner">
+    <a href="#top" class="brand">
+      <span class="brand__mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="white" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 6l6 6-6 6"/><line x1="17" y1="6" x2="17" y2="18"/></svg>
+      </span>
+      <span class="brand__word">Prompt<span class="accent">Master</span></span>
+    </a>
+    <nav class="nav__links" aria-label="Primary">
+      <a href="#curriculum">Curriculum</a>
+      <a href="#outcomes">Outcomes</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <div class="nav__actions">
+      <a href="#pricing" class="btn btn--ghost">Enroll now
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+      <button class="hamburger" id="hamburgerBtn" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#curriculum">Curriculum</a>
+    <a href="#outcomes">Outcomes</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#faq">FAQ</a>
+    <a href="#pricing" class="btn btn--solid mobile-menu__cta">Enroll now</a>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="hero__glow" aria-hidden="true"></div>
+
+    <div class="announcement">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="16" height="16" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span class="label">Limited time offer ends in</span>
+      <div class="countdown" id="countdown" aria-hidden="true">
+        <span class="countdown__box" id="cdH">17</span><span class="countdown__sep">:</span>
+        <span class="countdown__box" id="cdM">34</span><span class="countdown__sep">:</span>
+        <span class="countdown__box" id="cdS">51</span>
+      </div>
+    </div>
+
+    <div class="hero__content">
+      <div class="badge reveal"><span class="badge__dot"></span>Next cohort starts February 1st</div>
+
+      <h1 class="hero__heading reveal">Master Prompt Engineering &amp;<br class="hero-break"> <span class="accent">Supercharge</span> your career.</h1>
+
+      <p class="hero__sub reveal">The only course that takes you from AI novice to expert.</p>
+
+      <div class="analyzer reveal" id="analyzer">
+        <div class="analyzer__head">
+          <div class="analyzer__title">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M13 2 3 14h7l-1 8 10-12h-7l1-8z"/></svg>
+            Prompt Analyzer
+          </div>
+          <div class="analyzer__tools">
+            <span class="analyzer__status" id="analyzerStatus">Ready</span>
+            <div class="history-wrap">
+              <button class="icon-btn" id="historyBtn" aria-label="View question history" aria-expanded="false" aria-controls="historyPanel">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="16" height="16"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+              <div class="history-panel" id="historyPanel"></div>
+            </div>
+            <button class="icon-btn" id="shareBtn" aria-label="Share answer">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="16" height="16"><circle cx="18" cy="5" r="2.5"/><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="19" r="2.5"/><path d="M8.2 10.8 15.8 6.2M8.2 13.2l7.6 4.6" stroke-linecap="round"/></svg>
+            </button>
+          </div>
+        </div>
+        <div class="analyzer__row">
+          <input type="text" id="promptInput" class="analyzer__input" autocomplete="off" placeholder="Ask anything about AI prompting or prompt engineering…" aria-label="Your question">
+          <button class="analyzer__submit" id="analyzeBtn" aria-label="Ask">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+        <div class="example-row">
+          <button class="example-chip" data-q="What makes a prompt a &quot;good&quot; prompt?">What makes a prompt "good"?</button>
+          <button class="example-chip" data-q="How do few-shot examples improve a prompt?">Few-shot examples?</button>
+          <button class="example-chip" data-q="How should I structure a prompt for consistent output format?">Getting consistent output</button>
+        </div>
+        <div class="analyzer__result" id="analyzerResult" hidden></div>
+      </div>
+
+      <a href="#pricing" class="btn btn--cta reveal">Enroll now
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+      <p class="hero__trust reveal">Join 12,400+ professionals already leveling up with AI.</p>
+    </div>
+  </section>
+
+  <section class="stats" id="outcomes">
+    <div class="stat reveal"><div class="stat__num">12,400+</div><div class="stat__label">Professionals trained</div></div>
+    <div class="stat reveal"><div class="stat__num">94%</div><div class="stat__label">Course completion rate</div></div>
+    <div class="stat reveal"><div class="stat__num">4.9/5</div><div class="stat__label">Average learner rating</div></div>
+    <div class="stat reveal"><div class="stat__num">6 weeks</div><div class="stat__label">To portfolio-ready skills</div></div>
+  </section>
+
+  <section class="curriculum" id="curriculum">
+    <div class="section-head reveal">
+      <div class="eyebrow">What you'll learn</div>
+      <h2 class="section-title">A curriculum built around real work</h2>
+      <p class="section-desc">Six modules, each ending in something you can use the same week.</p>
+    </div>
+    <div class="curriculum__grid">
+      <div class="module reveal"><span class="module__num">01</span><h3 class="module__title">Foundations of Prompting</h3><p class="module__desc">Understand how language models actually read a prompt: tokens, context windows, and why small wording changes shift the entire output.</p></div>
+      <div class="module reveal"><span class="module__num">02</span><h3 class="module__title">Structuring Prompts That Work</h3><p class="module__desc">Master role framing, output formatting, constraints, and few-shot examples — the core structure behind every reliable prompt.</p></div>
+      <div class="module reveal"><span class="module__num">03</span><h3 class="module__title">Model-Specific Techniques</h3><p class="module__desc">Learn what changes across ChatGPT, Claude, Gemini, and open models, and how to adapt one idea to get consistent results from each.</p></div>
+      <div class="module reveal"><span class="module__num">04</span><h3 class="module__title">Chaining & Workflows</h3><p class="module__desc">Move from single prompts to multi-step workflows and simple agents that connect AI into the tools you already use.</p></div>
+      <div class="module reveal"><span class="module__num">05</span><h3 class="module__title">Evaluation & Iteration</h3><p class="module__desc">Build a repeatable process for testing prompts, catching failure modes early, and improving systematically instead of guessing.</p></div>
+      <div class="module reveal"><span class="module__num">06</span><h3 class="module__title">Capstone: Ship a Real Project</h3><p class="module__desc">Apply everything to a portfolio-ready AI workflow for your own role, with 1:1 feedback before you present it.</p></div>
+    </div>
+  </section>
+
+  <section class="testimonials">
+    <div class="section-head reveal">
+      <div class="eyebrow">Learner outcomes</div>
+      <h2 class="section-title">People who made the switch</h2>
+    </div>
+    <div class="testimonial__grid">
+      <div class="testimonial reveal">
+        <p class="testimonial__quote">I went from copy-pasting generic prompts to building workflows my whole team now relies on. My manager noticed within a month.</p>
+        <div class="testimonial__person"><div class="testimonial__avatar">PS</div><div><div class="testimonial__name">Priya S.</div><div class="testimonial__role">Growth Marketer</div></div></div>
+      </div>
+      <div class="testimonial reveal">
+        <p class="testimonial__quote">The evaluation module alone paid for the course. I stopped guessing and started testing prompts like an actual process.</p>
+        <div class="testimonial__person"><div class="testimonial__avatar">MD</div><div><div class="testimonial__name">Marcus D.</div><div class="testimonial__role">Freelance Consultant</div></div></div>
+      </div>
+      <div class="testimonial reveal">
+        <p class="testimonial__quote">I'd used ChatGPT for a year and still learned more in six weeks here than on my own. The live feedback made the difference.</p>
+        <div class="testimonial__person"><div class="testimonial__avatar">ER</div><div><div class="testimonial__name">Elena R.</div><div class="testimonial__role">Product Manager</div></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="pricing" id="pricing">
+    <div class="pricing__glow" aria-hidden="true"></div>
+    <div class="section-head reveal">
+      <div class="eyebrow">Enrollment</div>
+      <h2 class="section-title">Join the February cohort</h2>
+    </div>
+    <div class="pricing__card reveal">
+      <div class="pricing__cohort">Next cohort — February 1st · 24 seats left</div>
+      <div class="pricing__price-row"><span class="pricing__was">$999</span><span class="pricing__now">$749</span></div>
+      <p class="pricing__cadence">One-time payment · lifetime access to course updates</p>
+      <ul class="pricing__features">
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" width="16" height="16"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/></svg>6 weeks of live, cohort-based workshops</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" width="16" height="16"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/></svg>Lifetime access to all future updates</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" width="16" height="16"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/></svg>Private community of learners and alumni</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" width="16" height="16"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/></svg>1:1 project review before you graduate</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" width="16" height="16"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/></svg>Certificate of completion</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" width="16" height="16"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/></svg>Templates & prompt library for 20+ use cases</li>
+      </ul>
+      <a href="#top" class="btn btn--cta">Enroll now
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+      <p class="pricing__note">Price returns to $999 when the timer above hits zero.</p>
+    </div>
+  </section>
+
+  <section class="faq" id="faq">
+    <div class="section-head reveal">
+      <div class="eyebrow">Questions</div>
+      <h2 class="section-title">Before you enroll</h2>
+    </div>
+    <div class="faq__list">
+      <div class="faq__item">
+        <button class="faq__q">Do I need any coding experience to join?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <div class="faq__a"><p>None at all. PromptMaster is built for complete beginners as well as people who already use AI tools daily. We start from first principles and layer in advanced techniques as you go.</p></div>
+      </div>
+      <div class="faq__item">
+        <button class="faq__q">How much time should I set aside each week?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <div class="faq__a"><p>Most learners spend 4–6 hours a week across live sessions, exercises, and the capstone project. Everything is recorded, so you can also go entirely at your own pace.</p></div>
+      </div>
+      <div class="faq__item">
+        <button class="faq__q">What if I can't make the live workshops?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <div class="faq__a"><p>Every session is recorded and posted within 24 hours, and you'll have full access to the private community to ask questions any time.</p></div>
+      </div>
+      <div class="faq__item">
+        <button class="faq__q">Which AI tools and models does the course cover?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <div class="faq__a"><p>You'll practice across ChatGPT, Claude, Gemini, and leading open-source models, plus how to adapt techniques as new models are released.</p></div>
+      </div>
+      <div class="faq__item">
+        <button class="faq__q">Is there a refund policy?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <div class="faq__a"><p>Yes. If PromptMaster isn't the right fit, let us know within 14 days of the cohort start for a full refund, no questions asked.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="final-cta">
+    <h2 class="final-cta__title reveal">Seats for the February 1st cohort are almost gone.</h2>
+    <p class="final-cta__sub reveal">Join 12,400+ professionals who've already made AI part of how they work.</p>
+    <a href="#pricing" class="btn btn--cta reveal">Enroll now
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="footer__inner">
+    <div>
+      <a href="#top" class="brand">
+        <span class="brand__mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="white" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 6l6 6-6 6"/><line x1="17" y1="6" x2="17" y2="18"/></svg>
+        </span>
+        <span class="brand__word">Prompt<span class="accent">Master</span></span>
+      </a>
+      <p class="footer__brand-desc">PromptMaster teaches working professionals how to get reliable, high-quality results from AI — one cohort at a time.</p>
+    </div>
+    <div class="footer__col">
+      <div class="footer__col-title">Course</div>
+      <a href="#curriculum">Curriculum</a>
+      <a href="#outcomes">Outcomes</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#faq">FAQ</a>
+    </div>
+    <div class="footer__col">
+      <div class="footer__col-title">Company</div>
+      <a href="#">About</a>
+      <a href="#">Blog</a>
+      <a href="#">Careers</a>
+      <a href="#">Contact</a>
+    </div>
+    <div class="footer__col">
+      <div class="footer__col-title">Legal</div>
+      <a href="#">Terms of Service</a>
+      <a href="#">Privacy Policy</a>
+      <a href="#">Refund Policy</a>
+    </div>
+  </div>
+  <div class="footer__bottom">
+    <span>© 2026 PromptMaster. All rights reserved.</span>
+    <span><a href="#">Terms</a><a href="#">Privacy</a></span>
+  </div>
+</footer>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(function(){
+  var nav = document.getElementById('siteNav');
+  function onScroll(){ if (window.scrollY > 8) nav.classList.add('scrolled'); else nav.classList.remove('scrolled'); }
+  window.addEventListener('scroll', onScroll, { passive:true });
+  onScroll();
+
+  var hamburgerBtn = document.getElementById('hamburgerBtn');
+  var mobileMenu = document.getElementById('mobileMenu');
+  function closeMenu(){
+    hamburgerBtn.classList.remove('open');
+    hamburgerBtn.setAttribute('aria-expanded','false');
+    mobileMenu.classList.remove('open');
+  }
+  function toggleMenu(){
+    var isOpen = mobileMenu.classList.toggle('open');
+    hamburgerBtn.classList.toggle('open', isOpen);
+    hamburgerBtn.setAttribute('aria-expanded', String(isOpen));
+  }
+  hamburgerBtn.addEventListener('click', toggleMenu);
+  Array.prototype.forEach.call(mobileMenu.querySelectorAll('a'), function(a){ a.addEventListener('click', closeMenu); });
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape') closeMenu(); });
+
+  var remainingMs = ((17*60+34)*60+51) * 1000;
+  var totalMs = remainingMs;
+  var cdH = document.getElementById('cdH'), cdM = document.getElementById('cdM'), cdS = document.getElementById('cdS');
+  function pad(n){ return String(n).padStart(2,'0'); }
+  function renderCountdown(){
+    var s = Math.max(0, Math.round(remainingMs/1000));
+    var h = Math.floor(s/3600); s -= h*3600;
+    var m = Math.floor(s/60); s -= m*60;
+    cdH.textContent = pad(h); cdM.textContent = pad(m); cdS.textContent = pad(s);
+  }
+  renderCountdown();
+  setInterval(function(){
+    remainingMs -= 1000;
+    if (remainingMs <= 0) remainingMs = totalMs;
+    renderCountdown();
+  }, 1000);
+
+  var revealEls = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){ if (entry.isIntersecting){ entry.target.classList.add('in'); io.unobserve(entry.target); } });
+    }, { threshold:0.15 });
+    Array.prototype.forEach.call(revealEls, function(el){ io.observe(el); });
+  } else {
+    Array.prototype.forEach.call(revealEls, function(el){ el.classList.add('in'); });
+  }
+
+  Array.prototype.forEach.call(document.querySelectorAll('.faq__item'), function(item){
+    var q = item.querySelector('.faq__q');
+    var a = item.querySelector('.faq__a');
+    q.addEventListener('click', function(){
+      var isOpen = item.classList.contains('open');
+      Array.prototype.forEach.call(document.querySelectorAll('.faq__item.open'), function(other){
+        if (other !== item){ other.classList.remove('open'); other.querySelector('.faq__a').style.maxHeight = null; }
+      });
+      if (isOpen){ item.classList.remove('open'); a.style.maxHeight = null; }
+      else { item.classList.add('open'); a.style.maxHeight = a.scrollHeight + 'px'; }
+    });
+  });
+
+  var promptInput = document.getElementById('promptInput');
+  var analyzeBtn = document.getElementById('analyzeBtn');
+  var statusEl = document.getElementById('analyzerStatus');
+  var resultEl = document.getElementById('analyzerResult');
+  var historyBtn = document.getElementById('historyBtn');
+  var historyPanel = document.getElementById('historyPanel');
+  var shareBtn = document.getElementById('shareBtn');
+  var toast = document.getElementById('toast');
+
+  var historyItems = [];
+  var lastResult = null;
+  var toastTimer = null;
+
+  function showToast(msg){
+    toast.textContent = msg;
+    toast.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function(){ toast.classList.remove('show'); }, 2600);
+  }
+
+  var API_BASE = window.PROMPTMASTER_API_BASE || 'http://localhost:3001';
+
+  function escapeHtml(str){
+    var div = document.createElement('div');
+    div.textContent = str;
+    return div.innerHTML;
+  }
+
+  function renderLoading(){
+    resultEl.hidden = false;
+    resultEl.innerHTML =
+      '<div class="answer-box"><div class="answer-box__label">Claude</div>' +
+      '<div class="typing-dots" aria-label="Thinking"><span></span><span></span><span></span></div></div>';
+  }
+
+  function renderAnswer(answerText){
+    resultEl.hidden = false;
+    resultEl.innerHTML =
+      '<div class="answer-box"><div class="answer-box__label">Claude</div>' +
+      '<p class="answer-box__text">' + escapeHtml(answerText) + '</p></div>';
+  }
+
+  function renderError(message){
+    resultEl.hidden = false;
+    resultEl.innerHTML =
+      '<div class="answer-box"><div class="answer-box__label">Couldn\'t get an answer</div>' +
+      '<p class="answer-box__error">' + escapeHtml(message) + '</p></div>';
+  }
+
+  function renderHistory(){
+    if (!historyItems.length){
+      historyPanel.innerHTML = '<div class="history-panel__empty">No questions yet this session</div>';
+      return;
+    }
+    historyPanel.innerHTML = historyItems.map(function(h, i){
+      return '<button class="history-item" data-idx="' + i + '"><span class="history-item__prompt">' + escapeHtml(h.question) + '</span></button>';
+    }).join('');
+    Array.prototype.forEach.call(historyPanel.querySelectorAll('.history-item'), function(btn){
+      btn.addEventListener('click', function(){
+        var idx = Number(btn.dataset.idx);
+        promptInput.value = historyItems[idx].question;
+        historyPanel.classList.remove('open');
+        historyBtn.setAttribute('aria-expanded','false');
+        promptInput.focus();
+      });
+    });
+  }
+  renderHistory();
+
+  async function runAsk(){
+    var text = promptInput.value;
+    if (!text.trim()){ promptInput.focus(); return; }
+
+    statusEl.textContent = 'Thinking…';
+    statusEl.classList.add('busy');
+    analyzeBtn.disabled = true;
+    renderLoading();
+
+    try {
+      var res = await fetch(API_BASE + '/api/ask', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ question: text.trim() })
+      });
+      var data = await res.json().catch(function(){ return {}; });
+
+      if (!res.ok) {
+        throw new Error(data.error || ('Request failed (' + res.status + ')'));
+      }
+
+      lastResult = { question: text.trim(), answer: data.answer || '' };
+      renderAnswer(lastResult.answer);
+      statusEl.textContent = 'Done';
+
+      historyItems.unshift({ question: lastResult.question });
+      historyItems = historyItems.slice(0, 5);
+      renderHistory();
+    } catch (err) {
+      renderError(
+        (err && err.message ? err.message : 'Something went wrong reaching the backend.') +
+        ' Make sure the backend server is running (see backend/README.md).'
+      );
+      statusEl.textContent = 'Error';
+    } finally {
+      statusEl.classList.remove('busy');
+      analyzeBtn.disabled = false;
+      setTimeout(function(){ if (statusEl.textContent === 'Done' || statusEl.textContent === 'Error') statusEl.textContent = 'Ready'; }, 2600);
+    }
+  }
+  analyzeBtn.addEventListener('click', runAsk);
+  promptInput.addEventListener('keydown', function(e){ if (e.key === 'Enter'){ e.preventDefault(); runAsk(); } });
+
+  Array.prototype.forEach.call(document.querySelectorAll('.example-chip'), function(chip){
+    chip.addEventListener('click', function(){
+      promptInput.value = chip.dataset.q;
+      promptInput.focus();
+      runAsk();
+    });
+  });
+
+  historyBtn.addEventListener('click', function(e){
+    e.stopPropagation();
+    var isOpen = historyPanel.classList.toggle('open');
+    historyBtn.setAttribute('aria-expanded', String(isOpen));
+  });
+
+  shareBtn.addEventListener('click', function(){
+    if (!lastResult){ showToast('Ask a question first'); return; }
+    var text = 'Q: ' + lastResult.question + '\nA: ' + lastResult.answer + '\n\n— via PromptMaster Prompt Analyzer';
+    if (navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(text).then(function(){ showToast('Copied to clipboard'); }).catch(function(){ showToast('Couldn\'t copy — select the answer text manually'); });
+    } else {
+      showToast('Couldn\'t copy — select the answer text manually');
+    }
+  });
+
+  document.addEventListener('click', function(e){
+    if (historyPanel.classList.contains('open') && !historyPanel.contains(e.target) && !historyBtn.contains(e.target)){
+      historyPanel.classList.remove('open');
+      historyBtn.setAttribute('aria-expanded','false');
+    }
+    if (mobileMenu.classList.contains('open') && !mobileMenu.contains(e.target) && !hamburgerBtn.contains(e.target)){
+      closeMenu();
+    }
+  });
+})();
+</script>
+</body>
+</html>
